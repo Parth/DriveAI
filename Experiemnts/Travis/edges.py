@@ -21,12 +21,7 @@ for i in range(0, im.shape[0]):
 			yGrad = sqrt((dyr**2+dyg**2+dyb**2)*2/3)
 			im2[i,j,1] = yGrad
 			
-			ior = im[i,j,0]*.5-(im[i-1,j,0]*.25+im[i+1,j,0]*.25+im[i,j-1,0]*.25+im[i,j+1,0]*.25)*.5
-			iog = im[i,j,1]*.5-(im[i-1,j,1]*.25+im[i+1,j,1]*.25+im[i,j-1,1]*.25+im[i,j+1,1]*.25)*.5
-			iob = im[i,j,2]*.5-(im[i-1,j,2]*.25+im[i+1,j,2]*.25+im[i,j-1,2]*.25+im[i,j+1,2]*.25)*.5
-			ioGrad = sqrt((ior**2+iog**2+iob**2)*2/3)
-			
-			im2[i,j,2] = ioGrad
+			im2[i,j,2] = sqrt(xGrad**2+yGrad**2) 
 	if i%40 == 0:
 		print "calculating row: ", i
 rMin = 255
