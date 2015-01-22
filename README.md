@@ -2,8 +2,8 @@
 DriveAI
 =======
 
-members
+Members
 -------
 
 *Parth
-*Travis
+* Travis
