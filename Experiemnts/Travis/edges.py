@@ -1,6 +1,5 @@
 from numpy import *
 from PIL import Image
-import imtools
 
 image = 'shailene_woodley.png'
 im = array(Image.open(image))
