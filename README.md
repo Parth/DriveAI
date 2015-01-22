@@ -5,5 +5,5 @@ DriveAI
 Members
 -------
 
-*Parth
+* Parth
 * Travis
