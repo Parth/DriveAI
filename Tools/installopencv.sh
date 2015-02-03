@@ -1,21 +1,3 @@
-echo "installing virtualbox, git, curl, tmux, vim, pep8, python-dev, zsh, pv, java, checkinstall, openssh"
-sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11 git curl tmux vim pep8 python-dev zsh pv openjdk-7-jdk openjdk-7-jre checkinstall openssh-server
-sudo apt-get update
-echo "oh my zsh"
-sudo curl -L http://install.ohmyz.sh | bash
- echo "ros stuff"
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
-wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install ros-indigo-desktop-full
-sudo rosdep init
-rosdep update
-echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-source /opt/ros/indigo/setup.bash
-sudo apt-get install python-rosinstall
-echo "ros stuff done"
-sudo apt-get update
 echo "starting cv stuff"
 version="$(wget -q -O - http://sourceforge.net/projects/opencvlibrary/files/opencv-unix | egrep -m1 -o '\"[0-9](\.[0-9]+)+' | cut -c2-)"
 echo "Installing OpenCV" $version
