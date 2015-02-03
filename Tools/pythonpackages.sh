@@ -1,1 +1,1 @@
-pip install git+http://github.com/scipy/scipy/
+pip install cython scipy numpy

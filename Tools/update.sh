@@ -1,2 +1,2 @@
-sh ubuntupackages.sh
-sh pythonpackages.sh
+sudo sh ubuntupackages.sh
+sudo sh pythonpackages.sh
