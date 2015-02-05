@@ -36,20 +36,24 @@ if __name__ == '__main__':
 	save2 = Queue()
 	save3 = Queue()
 	save4 = Queue()
-	leftSize = left_result_queue.get().shape[1]
-	rightSize = right_result_queue.get().shape[1]
+
+	leftStrip = left_result_queue.get()
+	rightStrip = right_result_queue.get()
+
+	leftSize = leftStrip.shape[1]
+	rightSize = leftStrip.shape[1]
 
 	m = zeros([leftSize, rightSize])
 
 	print 'creating processes'
 
-	proc1 = Process(target=save, args=(left_result_queue.get(), right_result_queue.get(), 0, leftSize/2, 0, rightSize/2, m, save1))
+	proc1 = Process(target=save, args=(leftStrip, rightStrip, 0, leftSize/2, 0, rightSize/2, m, save1))
 	print 'created'
-	proc2 = Process(target=save, args=(left_result_queue.get(), right_result_queue.get(), (leftSize/2)+1, leftSize, 0, rightSize/2, m, save2))
+	proc2 = Process(target=save, args=(leftStrip, rightStrip, (leftSize/2)+1, leftSize, 0, rightSize/2, m, save2))
 	print 'created'
-	proc3 = Process(target=save, args=(left_result_queue.get(), right_result_queue.get(), 0, leftSize/2, (rightSize/2)+1, rightSize, m, save3))
+	proc3 = Process(target=save, args=(leftStrip, rightStrip, 0, leftSize/2, (rightSize/2)+1, rightSize, m, save3))
 	print 'created'
-	proc4 = Process(target=save, args=(left_result_queue.get(), right_result_queue.get(), (leftSize/2)+1,leftSize,(rightSize/2)+1, rightSize, m, save2))
+	proc4 = Process(target=save, args=(leftStrip, rightStrip, (leftSize/2)+1,leftSize,(rightSize/2)+1, rightSize, m, save2))
 	print 'created'
 	
 	print 1
@@ -85,4 +89,4 @@ if __name__ == '__main__':
 
 	out = Image.fromarray(uint8(m))
 	out.save('matrix2.png')
-	save(left_result_queue.get(), right_result_queue.get())
+	save(leftStrip, rightStrip)
