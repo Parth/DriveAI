@@ -16,7 +16,7 @@ def save(leftRow, rightRow, leftStartingPoint, leftEndPoint, rightStartingPoint,
 	# Calculate the values of the disparity matrix
 	for i in range(leftStartingPoint, leftEndPoint):
 		for j in range(rightStartingPoint, rightEndPoint):
-			outputArray = math.sqrt((leftRow[0][i][0]-rightRow[0][j][0])**2+(leftRow[0][i][1]-rightRow[0][j][1])**2+(leftRow[0][i][2]-rightRow[0][j][2])**2)
+			outputArray[i][j] = math.sqrt((leftRow[0][i][0]-rightRow[0][j][0])**2+(leftRow[0][i][1]-rightRow[0][j][1])**2+(leftRow[0][i][2]-rightRow[0][j][2])**2)
 	returnValue.put(outputArray)
 
 if __name__ == '__main__':
@@ -53,7 +53,7 @@ if __name__ == '__main__':
 	print 'created'
 	proc3 = Process(target=save, args=(leftStrip, rightStrip, 0, leftSize/2, (rightSize/2)+1, rightSize, m, save3))
 	print 'created'
-	proc4 = Process(target=save, args=(leftStrip, rightStrip, (leftSize/2)+1,leftSize,(rightSize/2)+1, rightSize, m, save2))
+	proc4 = Process(target=save, args=(leftStrip, rightStrip, (leftSize/2)+1,leftSize,(rightSize/2)+1, rightSize, m, save4))
 	print 'created'
 	
 	print 1
@@ -64,29 +64,28 @@ if __name__ == '__main__':
 	proc3.start()
 	print 4
 	proc4.start()
+	print 5
 
 	m1 = save1.get()
+	print m1
 	m2 = save2.get()
+	print 7
 	m3 = save3.get()
+	print 8
 	m4 = save4.get()
-
-
-	proc1.join()
-	proc2.join()
-	proc3.join()
-	proc4.join()
+	print 9
+	
 
 	m[0:leftSize/2][0:rightSize/2] = m1
 	m[(leftSize/2)+1:leftSize][0:rightSize/2] = m2
 	m[0:leftSize/2][(rightSize/2)+1:rightSize] = m3
 	m[(leftSize/2)+1:leftSize][(rightSize/2)+1:rightSize] = m4
 	
-	print m1
-	print m2
-	print m3
-	print m4
-	print m
+	print len(m1)
+	print len(m2)
+	print len(m3)
+	print len(m4)
+	print len(m)
 
-	out = Image.fromarray(uint8(m))
-	out.save('matrix2.png')
-	save(leftStrip, rightStrip)
+	#out = Image.fromarray(uint8(m))
+	#out.save('matrix2.png')
