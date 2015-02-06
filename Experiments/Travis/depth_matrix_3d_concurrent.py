@@ -9,6 +9,7 @@ from multiprocessing import Pool
 # Open the images, make variables for plotting
 left = array(Image.open('left2.png'),'f');
 right = array(Image.open('right2.png'),'f');
+PROCESSES = 8
 
 def compute(z):
 	for rx in range(0, left.shape[1]):
@@ -17,6 +18,6 @@ def compute(z):
 	return m
 
 if __name__ == '__main__':
-	p = Pool(1)
+	p = Pool(PROCESSES)
 	m = p.map(compute, range(0, 8))
 	print m
