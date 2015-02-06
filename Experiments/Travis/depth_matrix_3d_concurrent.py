@@ -19,5 +19,5 @@ def compute(z):
 
 if __name__ == '__main__':
 	p = Pool(PROCESSES)
-	m = p.map(compute, range(0, 8))
+	m = p.map(compute, range(0, left.shape[1]))
 	print m
