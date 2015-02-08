@@ -15,6 +15,7 @@ def compute(z):
 	for rx in range(0, left.shape[1]):
 		for lx in range(0, right.shape[1]):
 			m = math.sqrt((right[z][rx][0]-left[z][lx][0])**2 + (right[z][rx][1]-left[z][lx][1])**2 + (right[z][rx][2]-left[z][lx][2])**2)
+	print z
 	return m
 
 if __name__ == '__main__':
