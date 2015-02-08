@@ -11,22 +11,41 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="assets/css/main.css" rel="stylesheet">
     
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet prefetch' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet prefetch' type='text/css'>
     
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/smoothscroll.js"></script>
 
     <style>
-    .img-caption {
-        position: relative; 
-        float: bottom; 
-        color:white;
-    }
+        /* Assembly People Names */
+        .img-caption {
+            position: relative; 
+            float: bottom; 
+            color:white;
+        }
+
+        /* Loading Spinner... */
+        #leg-load {
+            display: none;
+        }
+        .fa-refresh-animate {
+            animation-name: rotateThis;
+            animation-duration: .5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            color: white;
+        }
+
+        @keyframes rotateThis {
+            from { transform: scale( 1 ) rotate( 0deg );   }
+            to   { transform: scale( 1 ) rotate( 360deg ); }
+        }
     </style>
     
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
@@ -265,6 +284,7 @@
 				  <div class="form-group">
 				    <label for="address1">Address</label>
 				    <input type="address" name="Address" class="form-control" id="address" placeholder="Enter address" required>
+                    <i id="leg-load" class="fa fa-refresh fa-refresh-animate"></i>
 				  </div>
                   <input type="hidden" name="lat" id="lat" />
                   <input type="hidden" name="lng" id="lng" />
@@ -294,5 +314,6 @@
 	  interval: 3500
 	})
 	</script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
   </body>
 </html>
