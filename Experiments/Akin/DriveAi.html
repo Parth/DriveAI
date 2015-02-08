@@ -82,18 +82,40 @@
 
                                   var assembly_person_gender = random_assembly_person['+gender'];
                                   var assmbly_gender = '';
-                                  var email = '';
+                                  var email = random_assembly_person['email'];
+                                  var random_assembly_person_last_name = random_assembly_person['last_name'];
+
+                                  console.log(random_assembly_person);
                                   if (assembly_person_gender == 'Male') {
-                                      email = 'asm';
+                                      if(!email){
+                                          email = 'asm';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
                                       assembly_gender = 'man'
-                                  } else {
-                                      email = 'asw';
+                                  } else if(assembly_person_gender == 'Female') {
+                                      if(!email){
+                                          email = 'asw';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
                                       assembly_gender = 'woman'
+                                  } else {
+                                      if(!email) {
+                                          /* email both male & female versions of email */
+                                          email = 'asw';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org, ';
+
+                                          email = 'asm';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
+                                      assembly_gender = 'person';
                                   }
 
-                                  random_assembly_person_last_name = random_assembly_person['last_name'];
-                                  email += random_assembly_person_last_name;
-                                  email += '@njleg.org';
+
+                                  console.log(email);
                                   var email_body = 'Dear Assembly'+assembly_gender+' '+random_assembly_person_last_name+':';
                                   $('#email-body').val(email_body);
 
