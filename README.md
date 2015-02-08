@@ -2,10 +2,6 @@
 DriveAI
 =======
 
-Advisors
---------
-* Praful
-
 Members
 -------
 
@@ -15,3 +11,4 @@ Members
 * Jason
 * Matt Lee
 * Matt Bowyer
+* Praful Mathur

@@ -11,16 +11,141 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="assets/css/main.css" rel="stylesheet">
     
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet prefetch' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet prefetch' type='text/css'>
     
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/smoothscroll.js"></script>
+
+    <style>
+
+    .img-caption {
+    	font-weight: bold;
+        position: relative; 
+        float: bottom; 
+        color:white;	
+    } 
+        /* Loading Spinner... */
+        #leg-load {
+            display: none;
+        }
+        .fa-refresh-animate {
+            animation-name: rotateThis;
+            animation-duration: .5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            color: white;
+        }
+
+        @keyframes rotateThis {
+            from { transform: scale( 1 ) rotate( 0deg );   }
+            to   { transform: scale( 1 ) rotate( 360deg ); }
+        }
+    </style>
     
+    h5 {
+    	font-size: 23px;
+    	}
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script type="text/javascript">
+        function initialize() {
+            var input = document.getElementById('address');
+            var options = {
+                componentRestrictions: {country: 'us'},
+                types: ['geocode'],
+            };
+                        
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                $('#leg-info').remove();
+                $('#leg-load').show();
+                var latlng = autocomplete.getPlace().geometry.location;
+                var lat = latlng['k'];
+                var lng = latlng['D'];
+                var params = {
+                    apikey: 'f4e254c70d034886ba575507cf53df61', 
+                    lat: lat, 
+                    long: lng
+                }
+                j = $.getJSON("http://openstates.org/api/v1/legislators/geo/", 
+                              params, 
+                              function(data){
+                                 var assembly_people = $.grep(data, function(obj, index) { 
+                                      return obj['chamber'] == 'lower' 
+                                  });
+
+                                  var number_of_assembly_people = assembly_people.length;
+                                  var random_number = Math.floor(Math.random() * number_of_assembly_people); 
+                                  var random_assembly_person = assembly_people[random_number];
+
+                                  var assembly_person_gender = random_assembly_person['+gender'];
+                                  var assmbly_gender = '';
+                                  var email = random_assembly_person['email'];
+                                  var random_assembly_person_last_name = random_assembly_person['last_name'];
+
+                                  console.log(random_assembly_person);
+                                  if (assembly_person_gender == 'Male') {
+                                      if(!email){
+                                          email = 'asm';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
+                                      assembly_gender = 'man'
+                                  } else if(assembly_person_gender == 'Female') {
+                                      if(!email){
+                                          email = 'asw';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
+                                      assembly_gender = 'woman'
+                                  } else {
+                                      if(!email) {
+                                          /* email both male & female versions of email */
+                                          email = 'asw';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org, ';
+
+                                          email = 'asm';
+                                          email += random_assembly_person_last_name;
+                                          email += '@njleg.org';
+                                      }
+                                      assembly_gender = 'person';
+                                  }
+
+
+                                  console.log(email);
+                                  var email_body = 'Dear Assembly'+assembly_gender+' '+random_assembly_person_last_name+':';
+                                  $('#email-body').val(email_body);
+
+                                  var phone = random_assembly_person['+phone'];
+                                  $('#leg-email').val(email);
+                                  $('#leg-load').hide();
+                                  $('#address').after('<div id="leg-info"></div>');
+                                  $('#leg-info').append('<strong>Your Representative:</strong><br/>');
+                                  $('#leg-info').append('<img id="leg-photo" width="100px" src="'+random_assembly_person['photo_url']+'" />');
+                                  $('#leg-info').append('<div>Assembly'+assembly_gender+' '+random_assembly_person['first_name']+' '+random_assembly_person_last_name+'</div>');
+                                  $('#leg-info').append('<div>District: '+random_assembly_person['district']+'</div>');
+                                  if(phone){
+                                      $('#leg-info').append('<div>'+phone+'</div>');
+                                  };
+                              })
+            });
+        }
+                    
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        // Disable enter from submitting form
+        $( document ).ready( function() {
+           $('input').keypress(function(){if(event.keyCode==13) return false;}) 
+        }) 
+    </script>
 
   </head>
 
@@ -60,18 +185,19 @@
 	    		</div>
 	    		
 	    		<div class="col-lg-2">
-	    			<h5>Dope Picture Goes Here</h5>
-	    			<p>Lorem Ipsum. Must keep people on site.</p>
+	    			<h5 style="font-size:20px">Why does California get to have all of the fun?</h5>
+	    			<p><strong>New Jersey has the talent, skill set, and brains to make this a state of innovation.</strong> </p>
 	    			<img class="hidden-xs hidden-sm hidden-md" src="assets/img/arrow1.png">
 	    		</div>
 	    		<div class="col-lg-8">
-	    			<img class="img-responsive" src="https://scontent-b-lga.xx.fbcdn.net/hphotos-xpa1/l/t31.0-8/s2048x2048/885558_766540866716497_7768373845002021570_o.jpg" alt="">
+	    			<img class="img-responsive" src="assets/img/InnovationCab.png" alt="">
 	    		</div>
 	    		<div class="col-lg-2">
 	    			<br>
 	    			<img class="hidden-xs hidden-sm hidden-md" src="assets/img/arrow2.png">
-	    			<h5>It has to say Smart, but just enough sex appeal</h5>
-	    			<p>Lorem Ipsum. Sex is always good.</p>
+	    			
+	    			<h5 style="font-size:20px">We can't do it alone though. We need your help!</h5>
+	    			<p><strong>Scroll down and contact your local legislator to help this state take advantage of its potential.</strong></p>
 	    		</div>
 	    	</div>
 	    </div> <!--/ .container -->
@@ -93,7 +219,7 @@
 				<br>
 				<br>
 				<div class="col-lg-6 centered">
-					<img class="centered" src="http://i.istockimg.com/file_thumbview_approve/523030/2/stock-illustration-523030-vector-opel-calibra-2.jpg" alt="">
+					<img class="centered" src="assets/img/CabMellow.jpg" alt="">
 				</div>
 				
 				<div class="col-lg-6">
@@ -109,7 +235,7 @@
 		                    </div><!-- /accordion-heading -->
 		                    <div id="collapseOne" class="accordion-body collapse in">
 		                        <div class="accordion-inner">
-								<p>What is the product. What are we currently doing. Progress.</p>
+								<p>We are getting ready to map out 3D space with recently purchased sensors and test our algorithms.</p>
 								</div><!-- /accordion-inner -->
 		                    </div><!-- /collapse -->
 		                </div><!-- /accordion-group -->
@@ -121,9 +247,9 @@
 		                        We Need Your Support
 		                        </a>
 		                    </div>
-		                    <div id="collapseTwo" class="accordion-body collapse">
+		                    <div id="collapseTwo" class="accordion-body collapse in">
 		                        <div class="accordion-inner">
-								<p>There is no legislation for this industry in NJ...yet Help us push it!.</p>
+								<p>There is no legislation for this amazing technology yet. We can change that and are close. The Senate passed the bill unanimously. The next step is to have it passed by Assembly. You can help by either emailing or phoning your local Assemblyman. We've laid out all the information and tools you need at the bottom of this page. Every voice matters!</p>
 								</div><!-- /accordion-inner -->
 		                    </div><!-- /collapse -->
 		                </div><!-- /accordion-group -->
@@ -135,9 +261,9 @@
 		                        Moving Forward
 		                        </a>
 		                    </div>
-		                    <div id="collapseThree" class="accordion-body collapse">
+		                    <div id="collapseThree" class="accordion-body collapse in">
 		                        <div class="accordion-inner">
-								<p>These are our goals, obstacles, etc. What we need to be successful</p>
+								<p>We have a car on the way and will have a demo ready by the summertime.</p>
 								</div><!-- /accordion-inner -->
 		                    </div><!-- /collapse -->
 		                </div><!-- /accordion-group -->
@@ -149,9 +275,9 @@
 		                        Our Community
 		                        </a>
 		                    </div>
-		                    <div id="collapseFour" class="accordion-body collapse">
+		                    <div id="collapseFour" class="accordion-body collapse in">
 		                        <div class="accordion-inner">
-								<p>Describe the community, how it's open source. The Meetup group, and all. Include link to meetup page</p>
+								<p>We are an open source community and welcome the brightest minds around to offer their talents. We host Meetup events between New York City and New Jersey where we have ambitious people share their own projects and advance the progress of the autonomous vehicle. Feel free to join!</p>
 								</div><!-- /accordion-inner -->
 		                    </div><!-- /collapse -->
 		                </div><!-- /accordion-group -->
@@ -162,37 +288,44 @@
 		</div><!--/ .container -->
 	</div><!--/ #features -->
 	
-	
-	<section id="showcase" name="showcase"></section>
 	<div id="showcase">
 		<div class="container">
-			<div class="row">
-				<h1 class="centered">Our Supporters</h1>
-				<br>
-				<div class="col-lg-8 col-lg-offset-2">
-					<div id="carousel-example-generic" class="carousel slide">
-					  <!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-					  </ol>
-					
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="assets/img/item-01.png" alt="">
-					    </div>
-					    <div class="item">
-					      <img src="assets/img/item-02.png" alt="">
-					    </div>
-					  </div>
-					</div>
-				</div>
-			</div>
-			<br>
-			<br>
-			<br>	
-		</div><!-- /container -->
+            <h1 class="centered">Our Supporters</h1>
+            <br>
+            <div class="row show-grid">
+                <div class="col-lg-4 col-lg-offset-2">
+                    <img src="assets/img/AssJohnWisniewski.jpg" alt="Assemblyman Wisniewski">
+                    <div class="img-caption">
+                        <span>Assemblyman Wisniewski</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <img src="assets/img/AssAnneteQuijano.jpg" alt="Assemblywoman Quijano">
+                    <div class="img-caption">
+                        <span>Assemblyman Quijano</span>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row show-grid">
+                <div class="col-lg-4 col-lg-offset-2">
+                    <img src="assets/img/AssThomasPGiblin.jpg" alt="Assemblyman Giblin">
+                    <div class="img-caption">
+                        <span>Assemblyman Giblin</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <img src="assets/img/AssRalphRCaputo.jpg" alt="Assemblyman Caputo">
+                    <div class="img-caption">
+                        <span>Assemblyman Caputo</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /container -->
 	</div>	
 
 
@@ -202,30 +335,35 @@
 			<div class="col-lg-5">
 				<h3>Contact Us</h3>
 				<p>
-				No Office<br/>
-				New Jersey,<br/>
-				5555<br/>
+				<strong>Call us at<br/>
+				(650) 385-8253</strong><br/>
 					<a href="http://www.meetup.com/Self-Driving-Vehicle/" style="color:#FFFFFF">
-				<u>Join the MeetUp!</u>
+				 <img src="assets/img/MeetupLogo.png" alt="Meetup">
 					</a>
 				</p>
 			</div>
 			
 			<div class="col-lg-7">
-				<h3>This can be the Petition. Pre-written and all. Simply type name and district</h3>
+				<h3>Email your local legislator and let them know that this is important</h3>
 				<br>
 				<form role="form" action="#" method="post" enctype="plain"> 
 				  <div class="form-group">
 				    <label for="name1">Your Name</label>
-				    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+				    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name" required>
 				  </div>
 				  <div class="form-group">
 				    <label for="email1">Email address</label>
-				    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+				    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email" required>
 				  </div>
 				  <div class="form-group">
+				    <label for="address1">Address</label>
+				    <input type="address" name="Address" class="form-control" id="address" placeholder="Enter address" required>
+                    <i id="leg-load" class="fa fa-refresh fa-refresh-animate"></i>
+				  </div>
+                  <input type="hidden" name="legislator_email" id="leg-email" />
+				  <div class="form-group">
 				  	<label>Your Text</label>
-				  	<textarea class="form-control" name="Message" rows="3"></textarea>
+				  	<textarea id="email-body" class="form-control" name="Message" rows="3"></textarea>
 				  </div>
 				  <br>
 				  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
@@ -235,8 +373,7 @@
 	</div>
 	<div id="c">
 		<div class="container">
-			<p>Drive.Ai</a></p>
-		
+			<p>Drive.Ai</p>
 		</div>
 	</div>
 
@@ -250,5 +387,6 @@
 	  interval: 3500
 	})
 	</script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
   </body>
 </html>
