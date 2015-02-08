@@ -59,9 +59,56 @@
                         
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                $('#leg-info').remove();
+                $('#leg-load').show();
                 var latlng = autocomplete.getPlace().geometry.location;
-                $("#lat").val(latlng['k']);
-                $("#lng").val(latlng['D']);
+                var lat = latlng['k'];
+                var lng = latlng['D'];
+                var params = {
+                    apikey: 'f4e254c70d034886ba575507cf53df61', 
+                    lat: lat, 
+                    long: lng
+                }
+                j = $.getJSON("http://openstates.org/api/v1/legislators/geo/", 
+                              params, 
+                              function(data){
+                                 var assembly_people = $.grep(data, function(obj, index) { 
+                                      return obj['chamber'] == 'lower' 
+                                  });
+
+                                  var number_of_assembly_people = assembly_people.length;
+                                  var random_number = Math.floor(Math.random() * number_of_assembly_people); 
+                                  var random_assembly_person = assembly_people[random_number];
+
+                                  var assembly_person_gender = random_assembly_person['+gender'];
+                                  var assmbly_gender = '';
+                                  var email = '';
+                                  if (assembly_person_gender == 'Male') {
+                                      email = 'asm';
+                                      assembly_gender = 'man'
+                                  } else {
+                                      email = 'asw';
+                                      assembly_gender = 'woman'
+                                  }
+
+                                  random_assembly_person_last_name = random_assembly_person['last_name'];
+                                  email += random_assembly_person_last_name;
+                                  email += '@njleg.org';
+                                  var email_body = 'Dear Assembly'+assembly_gender+' '+random_assembly_person_last_name+':';
+                                  $('#email-body').val(email_body);
+
+                                  var phone = random_assembly_person['+phone'];
+                                  $('#leg-email').val(email);
+                                  $('#leg-load').hide();
+                                  $('#address').after('<div id="leg-info"></div>');
+                                  $('#leg-info').append('<strong>Your Representative:</strong><br/>');
+                                  $('#leg-info').append('<img id="leg-photo" src="'+random_assembly_person['photo_url']+'" />');
+                                  $('#leg-info').append('<div>Assembly'+assembly_gender+' '+random_assembly_person['first_name']+' '+random_assembly_person_last_name+'</div>');
+                                  $('#leg-info').append('<div>District: '+random_assembly_person['district']+'</div>');
+                                  if(phone){
+                                      $('#leg-info').append('<div>'+phone+'</div>');
+                                  };
+                              })
             });
         }
                     
@@ -286,11 +333,10 @@
 				    <input type="address" name="Address" class="form-control" id="address" placeholder="Enter address" required>
                     <i id="leg-load" class="fa fa-refresh fa-refresh-animate"></i>
 				  </div>
-                  <input type="hidden" name="lat" id="lat" />
-                  <input type="hidden" name="lng" id="lng" />
+                  <input type="hidden" name="legislator_email" id="leg-email" />
 				  <div class="form-group">
 				  	<label>Your Text</label>
-				  	<textarea class="form-control" name="Message" rows="3"></textarea>
+				  	<textarea id="email-body" class="form-control" name="Message" rows="3"></textarea>
 				  </div>
 				  <br>
 				  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
