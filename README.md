@@ -12,3 +12,4 @@ Members
 * Matt Lee
 * Matt Bowyer
 * Praful Mathur
+* Akin Shoyoye
