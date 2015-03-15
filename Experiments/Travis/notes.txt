@@ -1,0 +1,6 @@
+z: depth to point perpendicular from image plane
+t: distance between cameras
+d: disparity between corresponding pixels
+f: camera focal length
+
+z = ft/d
