@@ -1,6 +1,12 @@
 z: depth to point perpendicular from image plane
 t: distance between cameras
-d: disparity between corresponding pixels
+d: disparity between corresponding pixels (pixel difference / x resolution)
 f: camera focal length
 
 z = ft/d
+
+Cubes:
+z(a) = 2.2z(e)+3
+
+CubeCylinder:
+z(a) = 4.88z(e)+1.44
