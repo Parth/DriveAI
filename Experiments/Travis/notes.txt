@@ -5,8 +5,11 @@ f: camera focal length
 
 z = ft/d
 
-Cubes:
+Data Collection Set:
+z(a) = 2.1z(e)+3.35
+
+1:
 z(a) = 2.2z(e)+3
 
-CubeCylinder:
+2:
 z(a) = 4.88z(e)+1.44
