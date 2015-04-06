@@ -1,0 +1,54 @@
+#include <cv.h>
+#include <cxcore.h>
+#include <highgui.h>
+
+const int MAX_CORNERS = 500;
+
+int main(int argc, char** argv) {
+	IplImage* imgA = cvLoadImage("0.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+	IplImage* imgB = cvLoadImage("1.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+
+	CvSize img_sz = cvGetSize(imgA);
+	int win_size = 10;
+
+	IplImage* imgC = cvLoadImage(
+		"0.jpg",
+		CV_LOAD_IMAGE_UNCHANGED
+	);
+
+	IplImage* eig_image = cvCreateImage(img_sz, IPL_DEPTH_32F, 1);
+	IplImage* cornerA = new CvPoint2D32[MAX_CORNERS];
+
+	cvGoodFeaturesToTrack(
+		imgA,
+		eig_image,
+		tmp_image,
+		cornersA,
+		&corner_count,
+		0.01,
+		5.0,
+		0,
+		3,
+		0,
+		0.04
+	);
+
+	cvFindCornerSubPix(
+		imgA, 
+		cornersA,
+		corner_count,
+		cvSize(win_size, win_size),
+		cvSize(-1, -1),
+		cvTermCriteria(CV_TERMCRIT_ITER|CV_TERMCRIT_EPS,20,0.03)
+	);
+
+	char features_found[MAX_CORNERS];
+	float feature_error[MAX_CORNERS];
+
+	CvSize pyr_sz = cvSize(imgA->width+8, imgB->height/3);
+
+	IplImage* pyrA = cvCreateImage(pyr_sz, IPL_DEPTH_32F, 1);
+	IplImage* pyrB = cvCreateImage(pyr_sz, IPL_DEPTH_32F, 1);
+
+	CvPoint2D32f* cornersB = new CvPoint2D32f[MAX_CORNERS];
+}
