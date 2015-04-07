@@ -7,7 +7,7 @@ Members
 
 * Parth
 * Travis
-* Sid
+* Sid Ghoshal
 * Jason
 * Matt Lee
 * Matt Bowyer
