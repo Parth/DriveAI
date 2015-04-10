@@ -1,0 +1,53 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec883234420/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec883234420.dir/build.make CMakeFiles/cmTryCompileExec883234420.dir/build
+make[1]: Entering directory `/home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec883234420.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec883234420.dir/CheckSymbolExists.c.o   -c /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec883234420
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec883234420.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec883234420.dir/CheckSymbolExists.c.o  -o cmTryCompileExec883234420 -rdynamic 
+CMakeFiles/cmTryCompileExec883234420.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: Leaving directory `/home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec883234420] Error 1
+make: *** [cmTryCompileExec883234420/fast] Error 2
+
+File /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3630053580/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3630053580.dir/build.make CMakeFiles/cmTryCompileExec3630053580.dir/build
+make[1]: Entering directory `/home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3630053580.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3630053580.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3630053580
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3630053580.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3630053580.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3630053580 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3630053580] Error 1
+make[1]: Leaving directory `/home/parthmehrotra/Projects/HighPriority/DriveAI/Archive/Experiments/Parth/ROS/Trial4/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec3630053580/fast] Error 2
+
+

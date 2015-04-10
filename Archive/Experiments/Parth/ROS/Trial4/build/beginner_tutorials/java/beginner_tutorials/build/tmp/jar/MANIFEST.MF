@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Export-Package: beginner_tutorials;version="0.0.0";uses:="org.ros.inte
+ rnal.message"
+Bundle-Version: 0.0.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: beginner_tutorials
+Bnd-LastModified: 1428698105000
+Created-By: 1.7.0_75 (Oracle Corporation)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.ros.rosjava_messages.beginner_tutorials
+Import-Package: org.ros.internal.message
+
