@@ -258,6 +258,12 @@ _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 catkin_DIR:PATH=/opt/ros/indigo/share/catkin/cmake
 
 //Value Computed by CMake
+driveai_vision_BINARY_DIR:STATIC=/home/parthmehrotra/Projects/HighPriority/DriveAI/Workspace/build/driveai_vision
+
+//Value Computed by CMake
+driveai_vision_SOURCE_DIR:STATIC=/home/parthmehrotra/Projects/HighPriority/DriveAI/Workspace/src/driveai_vision
+
+//Value Computed by CMake
 gtest_BINARY_DIR:STATIC=/home/parthmehrotra/Projects/HighPriority/DriveAI/Workspace/build/gtest
 
 //Dependencies for the target
@@ -384,7 +390,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=2
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
