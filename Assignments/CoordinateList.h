@@ -1,17 +1,26 @@
 #define Coordinate double
+#define FOCAL_LENGTH .035
 
 class CoordinateList {
     public:
-        List<Coordinates> coordinates;
+        // List of all coordinate triples
+        List<Coordinates[]> coordinates;
+        // Type of coordinates:
+        // 0 = cartesian (x, y, z)
+        // 1 = spherical (r, theta, roe)
+        // 2 = perspective (u, v, w)
         char type;
         /**
-        *
-        */
+         * Converts the coordinate triples to the type specified using the same origin
+         * 
+         * @param type - the type to convert the coordinates to
+         */
         void toType(int type);
-
         /**
-        * 
-        */
-        void toType(int type, Coordinate[] origin);
+         * Converts the coodinates triples to the type specified using a new origin, offset from the previous origin by the given (x,y,z) triple
+         * 
+         * @param offset - the offset in world coordinates from the existing origin to the new origin
+         */
+        void toType(int type, Coordinate[] offset);
         CoordinateList clone();
 };
