@@ -19,18 +19,5 @@ const Coordinate[] leftCameraOrientation;
  */
 CoordinateList seededCorrespondence(Image left, Image right, CoordinateList lidar)
 {
-    CoordinateList leftList = seededCorrespondence(left, right);
-    CoordinateList rightList = seededCorrespondence(right, left);
-}
-
-/**
- * Conducts a stereo correspondence seeded by lidar data
- * 
- * @param left  left image to be used in correspondence
- * @param right right image to be used in correspondence
- * @param lidar lidar data to be used as the seed
- */
-CoordinateList seededCorrespondence(Image left, Image right, CoordinateList lidar)
-{
     
 }
