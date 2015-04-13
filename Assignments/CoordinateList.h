@@ -13,17 +13,31 @@ class CoordinateList {
         char type;
         
         /**
-         * Converts the coordinate triples to the type specified using the same origin
+         * Converts the coordinate triples to the type specified using the same origin and rotation
          * 
-         * @param type - the type to convert the coordinates to
+         * @param type  the type to convert the coordinates to
          */
         void toType(int type);
         
         /**
-         * Converts the coodinates triples to the type specified using a new origin, offset from the previous origin by the given (x,y,z) triple
+         * Converts the coodinates triples to the type specified using a new origin, offset from the previous origin by the given (x,y,z) triple and not rotated
          * 
-         * @param offset - the offset in world coordinates from the existing origin to the new origin
+         * @param type      the type to convert the coordinates to
+         * @param offset    the offset in world coordinates from the existing origin to the new origin
          */
         void toType(int type, Coordinate[] offset);
+        
+        /**
+         * Converts the coodinates triples to the type specified using a new origin, offset from the previous origin by the given (x,y,z) triple and rotated by the given theta
+         * 
+         * @param type      the type to convert the coordinates to
+         * @param offset    the offset in world coordinates from the existing origin to the new origin
+         * @param theta     the amount to rotate the coordinates by (about the line x=0, z=0)
+         */
+        void toType(int type, Coordinate[] offset, float theta);
+        
+        /**
+         * Makes and returns a copy of this CoordinateList
+         */
         CoordinateList clone();
 };
