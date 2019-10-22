@@ -1,5 +1,5 @@
 PAM==0.4.2
-Pillow==2.3.0
+Pillow==6.2.0
 PyOpenGL==3.0.2
 PyYAML==3.10
 Pygments==1.6
