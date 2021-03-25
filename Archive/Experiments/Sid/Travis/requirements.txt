@@ -1,7 +1,7 @@
 PAM==0.4.2
 Pillow==6.2.0
 PyOpenGL==3.0.2
-PyYAML==3.10
+PyYAML==5.4
 Pygments==1.6
 SecretStorage==2.0.0
 Twisted-Core==13.2.0
